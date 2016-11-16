@@ -1,7 +1,7 @@
 {
     "name": "designinlife/aplite",
     "type": "library",
-    "description": "APLite-Base",
+    "description": "A simple and abstract framework for PHP.",
     "homepage": "https://github.com/designinlife",
     "license": "MIT",
     "authors": [
