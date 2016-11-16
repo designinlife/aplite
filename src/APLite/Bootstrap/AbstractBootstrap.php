@@ -10,6 +10,7 @@ use APLite\Interfaces\IProcess;
 use APLite\Interfaces\IRouteParser;
 use APLite\Interfaces\IRouteValidator;
 use APLite\Router\RouteResponse;
+use Pheanstalk\Pheanstalk;
 
 /**
  * 抽象 Bootstrap 启动器。
@@ -105,6 +106,13 @@ abstract class AbstractBootstrap {
     protected $dbs = [];
 
     /**
+     * Beanstalkd 客户端对象实例。
+     *
+     * @var Pheanstalk
+     */
+    public $sqs = NULL;
+
+    /**
      * 全局配置参数列表。
      *
      * @var array
@@ -121,8 +129,9 @@ abstract class AbstractBootstrap {
     /**
      * 执行请求调度。
      *
-     * @param array $argv 命令行参数列表。
      * @param array $cfgs 全局配置参数列表。
+     * @param array $argv 命令行参数列表。
+     * @throws ConfigurationException
      */
     final function dispatch(array &$cfgs, array &$argv = NULL) {
         if (0 == strcmp('cli', PHP_SAPI)) {
@@ -153,6 +162,11 @@ abstract class AbstractBootstrap {
 
                 $this->dbs[$k] = $dbo;
             }
+        }
+
+        // 实例化队列服务 ...
+        if (isset($cfgs['sqs']['host'], $cfgs['sqs']['port'])) {
+            $this->sqs = new \Pheanstalk\Pheanstalk($cfgs['sqs']['host'], $cfgs['sqs']['port']);
         }
 
         $this->initialize();
@@ -256,6 +270,12 @@ abstract class AbstractBootstrap {
                 $this->dbs[$k] = NULL;
             }
         }
+
+        if ($this->sqs) {
+            $this->sqs->getConnection()->disconnect();
+        }
+
+        $this->sqs = NULL;
     }
 
     /**

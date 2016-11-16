@@ -216,5 +216,6 @@ pip-log.txt
 .mr.developer.cfg
 
 #Custom
+apigen.neon
 .idea/
 vendor/
