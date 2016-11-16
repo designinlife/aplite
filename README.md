@@ -6,12 +6,8 @@ PHP >= 5.6.x
 apache/log4php: 2.3  
 twig/twig: 1.2.x
 
-# Composer
-{
-    "require": {
-        "designinlife/aplite": "~1.0"
-    }
-}
+# Install From Composer
+composer require designinlife/aplite
 
 # Usage
 ```php
