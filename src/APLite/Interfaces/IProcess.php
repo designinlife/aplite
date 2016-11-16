@@ -11,7 +11,24 @@ namespace APLite\Interfaces;
  */
 interface IProcess extends IController {
     /**
-     * 执行命令。
+     * 获取命令行参数选项列表。
+     *
+     * @return \GetOptionKit\OptionCollection
      */
-    function run();
+    function getOptions();
+
+    /**
+     * 解析参数选项。
+     *
+     * @param array $argv
+     * @return \GetOptionKit\Option[]|\GetOptionKit\OptionResult|null
+     */
+    function parse(array $argv = NULL);
+
+    /**
+     * 执行命令。
+     *
+     * @param \GetOptionKit\Option[]|\GetOptionKit\OptionResult|null $args
+     */
+    function run($args = NULL);
 }

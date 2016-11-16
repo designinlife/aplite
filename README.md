@@ -5,6 +5,7 @@ An simple abstract-based framework.
 PHP >= 5.6.x  
 apache/log4php: 2.3  
 twig/twig: 1.2.x
+pda/pheanstalk: 3.1
 
 # Install From Composer
 composer require designinlife/aplite dev-master

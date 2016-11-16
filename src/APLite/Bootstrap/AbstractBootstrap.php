@@ -220,10 +220,12 @@ abstract class AbstractBootstrap {
         if ($cls_o instanceof IController) {
             $cls_o->initialize();
 
-            if ($this->isCliRunning() && $cls_o instanceof IProcess)
-                $cls_o->run();
-            else
+            if ($this->isCliRunning() && $cls_o instanceof IProcess) {
+                $r = $cls_o->parse($this->argv);
+                $cls_o->run($r);
+            } else {
                 $cls_o->$cls_m();
+            }
 
             $cls_o->dispose();
         } else {
