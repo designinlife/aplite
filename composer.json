@@ -1,0 +1,29 @@
+{
+    "name": "designinlife/aplite",
+    "type": "library",
+    "description": "APLite-Base",
+    "homepage": "https://github.com/designinlife",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lei Lee",
+            "email": "web.developer.network@gmail.com",
+            "homepage": "https://github.com/designinlife"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0",
+        "corneltek/getoptionkit": "~2.5",
+        "apache/log4php": "~2.3",
+        "twig/twig": "~1.27"
+    },
+    "autoload": {
+        "psr-0": {
+            "Twig_": "lib/"
+        },
+        "psr-4": {
+            "Application\\": "demo/Application/",
+            "APLite\\": "src/APLite/"
+        }
+    }
+}

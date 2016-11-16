@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns="http://logging.apache.org/log4php/">
+    <appender name="console-appender" class="LoggerAppenderConsole">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u} [#%pid][%level][%logger{0}] %message%exception%newline"/>
+        </layout>
+    </appender>
+    <appender name="file-appender" class="LoggerAppenderFile">
+        <param name="file" value="/data/logs/mxsj/sys.log"/>
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u} [#%pid][%level][%logger{0}] %message%exception%newline"/>
+        </layout>
+    </appender>
+    <appender name="daily-file-appender" class="LoggerAppenderDailyFile">
+        <param name="file" value="/data/logs/mxsj/%s.aplite.log"/>
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u} [#%pid][%level][%logger{0}] %message%exception%newline"/>
+        </layout>
+        <param name="datePattern" value="Ymd"/>
+    </appender>
+    <appender name="rolling-file-appender" class="LoggerAppenderRollingFile">
+        <param name="file" value="/data/logs/mxsj/sys.log"/>
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u} [#%pid][%level][%logger{0}] %message%exception%newline"/>
+        </layout>
+        <param name="maxFileSize" value="1MB"/>
+        <param name="maxBackupIndex" value="9"/>
+    </appender>
+    
+    <!-- 定义日志级别 -->
+    <logger name="APLite" additivity="false">
+        <appender_ref ref="daily-file-appender"/>
+    </logger>
+    
+    <root>
+        <level value="DEBUG"/>
+        <!--
+        <appender_ref ref="console-appender"/>
+        <appender_ref ref="file-appender" />
+        <appender_ref ref="daily-file-appender" />
+        <appender_ref ref="rolling-file-appender"/>
+        -->
+        <appender_ref ref="daily-file-appender" />
+    </root>
+</configuration>
