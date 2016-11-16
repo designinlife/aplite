@@ -4,6 +4,7 @@ namespace APLite\Bootstrap;
 use APLite\DB\DbParameter;
 use APLite\DB\DbPdo;
 use APLite\Exceptions\ArgumentException;
+use APLite\Exceptions\ConfigurationException;
 use APLite\Interfaces\IController;
 use APLite\Interfaces\IProcess;
 use APLite\Interfaces\IRouteParser;
@@ -140,6 +141,9 @@ abstract class AbstractBootstrap {
         \APLite\Logger\Logger::configure($this->logger_configuration);
 
         $this->logger = \APLite\Logger\Logger::getLogger('APLite');
+
+        if (!isset($cfgs['dbs']['default']))
+            throw new ConfigurationException('未检测到缺省数据库配置。');
 
         // 实例化 IDb 对象列表 ...
         if (is_array($cfgs['dbs'])) {
@@ -392,11 +396,11 @@ abstract class AbstractBootstrap {
     /**
      * 获取 IDb 对象实例。
      *
-     * @param int $db_index 指定 DBs 配置索引。
+     * @param string $db_index 指定 DBs 配置索引。
      * @return \APLite\Interfaces\IDb
      * @throws ArgumentException
      */
-    function getDb($db_index = 0) {
+    function getDb($db_index = 'default') {
         if (!isset($this->dbs[$db_index]))
             throw new ArgumentException('未检测到活动的 IDb 实例对象。(db=' . $db_index . ')');
 
