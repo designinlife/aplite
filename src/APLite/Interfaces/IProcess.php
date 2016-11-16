@@ -13,7 +13,7 @@ interface IProcess extends IController {
     /**
      * 获取命令行参数选项列表。
      *
-     * @return \GetOptionKit\OptionCollection
+     * @return \GetOptionKit\OptionCollection|null
      */
     function getOptions();
 
@@ -21,14 +21,11 @@ interface IProcess extends IController {
      * 解析参数选项。
      *
      * @param array $argv
-     * @return \GetOptionKit\Option[]|\GetOptionKit\OptionResult|null
      */
     function parse(array $argv = NULL);
 
     /**
      * 执行命令。
-     *
-     * @param \GetOptionKit\Option[]|\GetOptionKit\OptionResult|null $args
      */
-    function run($args = NULL);
+    function run();
 }

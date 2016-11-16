@@ -2,8 +2,10 @@
 namespace APLite\Base;
 
 use APLite\Interfaces\IProcess;
+use GetOptionKit\Option;
 use GetOptionKit\OptionParser;
 use GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
+use GetOptionKit\OptionResult;
 
 /**
  * 抽象命令行进程基类。
@@ -14,6 +16,11 @@ use GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
  * @copyright (c) 2013-2016, Lei Lee
  */
 abstract class ProcessBase implements IProcess {
+    /**
+     * @var OptionResult
+     */
+    private $optionResult = NULL;
+
     /**
      * 控制器初始化事件。
      */
@@ -27,11 +34,28 @@ abstract class ProcessBase implements IProcess {
     }
 
     /**
+     * 获取命令行参数选项列表。
+     *
+     * @return \GetOptionKit\OptionCollection|null
+     */
+    function getOptions() {
+        return NULL;
+    }
+
+    /**
+     * 获取参数选项。
+     *
+     * @param string|int $key
+     * @return Option
+     */
+    protected function opt($key) {
+        return $this->optionResult[$key];
+    }
+
+    /**
      * 解析参数选项。
      *
      * @param array $argv
-     * @return \GetOptionKit\Option[]|\GetOptionKit\OptionResult|null
-     * @throws \Exception
      */
     final function parse(array $argv = NULL) {
         $options = $this->getOptions();
@@ -39,17 +63,13 @@ abstract class ProcessBase implements IProcess {
         if ($options) {
             $parser = new OptionParser($options);
 
-            $r = $parser->parse($argv);
+            $this->optionResult = $parser->parse($argv);
 
             if (isset($r['help']) && $r['help']->value === true) {
                 $printer = new ConsoleOptionPrinter();
                 echo $printer->render($options);
                 exit(2);
             }
-
-            return $r;
         }
-
-        return NULL;
     }
 }
