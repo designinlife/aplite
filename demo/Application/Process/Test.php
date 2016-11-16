@@ -20,8 +20,8 @@ class Test extends ProcessBase {
      */
     function getOptions() {
         $options = new OptionCollection();
-        $options->add('i|id', '进程序号');
-        $options->add('n|num', '开启的子进程数量');
+        $options->add('i|id:=number', '进程序号');
+        $options->add('n|num:=number', '开启的子进程数量');
         $options->add('h|help', '显示帮助信息');
 
         return $options;
@@ -31,6 +31,6 @@ class Test extends ProcessBase {
      * 执行命令。
      */
     function run() {
-        // var_dump($this->opt('id')->desc);
+        var_dump($this->opt('num')->value);
     }
 }
