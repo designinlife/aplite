@@ -15,7 +15,7 @@ use GetOptionKit\OptionResult;
  * @version       1.0.0
  * @copyright (c) 2013-2016, Lei Lee
  */
-abstract class ProcessBase implements IProcess {
+abstract class ProcessBase extends AbstractProcessBase implements IProcess {
     /**
      * @var OptionResult
      */
