@@ -34,6 +34,8 @@ abstract class MultiProcessBase extends ProcessBase {
             $this->workers[$i] = new \Swoole\Process([$this, 'subprocess']);
             $this->workers[$i]->start();
         }
+
+        \Swoole\Process::wait();
     }
 
     /**
