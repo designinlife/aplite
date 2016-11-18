@@ -16,14 +16,14 @@
         "corneltek/getoptionkit": "~2.5",
         "apache/log4php": "~2.3",
         "twig/twig": "~1.27",
-        "pda/pheanstalk": "~3.1.0"
+        "pda/pheanstalk": "~3.1.0",
+        "mtdowling/cron-expression": "dev-master"
     },
     "autoload": {
         "psr-0": {
             "Twig_": "lib/"
         },
         "psr-4": {
-            "Application\\": "demo/Application/",
             "APLite\\": "src/APLite/"
         }
     }
