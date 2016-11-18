@@ -9,6 +9,7 @@ use APLite\Interfaces\IController;
 use APLite\Interfaces\IProcess;
 use APLite\Interfaces\IRouteParser;
 use APLite\Interfaces\IRouteValidator;
+use APLite\Queue\SQ;
 use APLite\Router\RouteResponse;
 use Pheanstalk\Pheanstalk;
 
@@ -167,6 +168,8 @@ abstract class AbstractBootstrap {
         // 实例化队列服务 ...
         if (isset($cfgs['sqs']['host'], $cfgs['sqs']['port'])) {
             $this->sqs = new \Pheanstalk\Pheanstalk($cfgs['sqs']['host'], $cfgs['sqs']['port']);
+
+            SQ::initialize($this);
         }
 
         $this->initialize();
