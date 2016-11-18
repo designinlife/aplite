@@ -24,14 +24,12 @@ abstract class ProcessBase extends AbstractProcessBase implements IProcess {
     /**
      * 控制器初始化事件。
      */
-    function initialize() {
-    }
+    function initialize() { }
 
     /**
      * 释放资源。
      */
-    function dispose() {
-    }
+    function dispose() { }
 
     /**
      * 获取命令行参数选项列表。
@@ -71,5 +69,12 @@ abstract class ProcessBase extends AbstractProcessBase implements IProcess {
                 exit(2);
             }
         }
+    }
+
+    /**
+     * 启用进程别名。
+     */
+    final function alias() {
+        cli_set_process_title($this->bootstrap->getAliasPrefix() . str_replace(['\\'], ['.'], strtolower(get_class($this))));
     }
 }
