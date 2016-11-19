@@ -26,6 +26,8 @@ class DbParameter {
 
     private $init_command = '';
 
+    private $timeout = 0;
+
     /**
      * DbParameter constructor.
      *
@@ -37,8 +39,9 @@ class DbParameter {
      * @param string $charset
      * @param string $sock
      * @param string $init_command
+     * @param int    $timeout
      */
-    function __construct($host, $port, $user, $password, $db, $charset = 'utf8', $sock = NULL, $init_command = NULL) {
+    function __construct($host, $port, $user, $password, $db, $charset = 'utf8', $sock = NULL, $init_command = NULL, $timeout = 0) {
         $this->host         = $host;
         $this->port         = $port;
         $this->user         = $user;
@@ -47,6 +50,7 @@ class DbParameter {
         $this->charset      = $charset;
         $this->sock         = $sock;
         $this->init_command = $init_command;
+        $this->timeout      = $timeout;
     }
 
     /**
@@ -137,5 +141,14 @@ class DbParameter {
      */
     function getInitCommand() {
         return $this->init_command;
+    }
+
+    /**
+     * 获取会话超时值。(秒)
+     *
+     * @return int
+     */
+    function getTimeout() {
+        return $this->timeout;
     }
 }
