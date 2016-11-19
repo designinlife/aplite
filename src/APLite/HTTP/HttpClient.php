@@ -49,7 +49,7 @@ class HttpClient extends AbstractBase {
         if (false === $r || $errno != 0)
             throw new HttpClientException('HTTP 请求失败。(' . $error . ')', 4001);
 
-        if ($http_code >= 200 && $http_code < 300)
+        if (!($http_code >= 200 && $http_code < 300))
             throw new HttpStatusException('请求响应状态异常。', 4002, $http_code);
 
         // if (empty($r))

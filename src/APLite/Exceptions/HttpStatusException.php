@@ -1,5 +1,6 @@
 <?php
 namespace APLite\Exceptions;
+
 use Exception;
 
 /**
@@ -28,7 +29,7 @@ class HttpStatusException extends HttpClientException {
      * @param Exception $previous  [optional] The previous exception used for the exception chaining. Since 5.3.0
      * @since 5.1.0
      */
-    function __construct($message, $code, $http_code, Exception $previous) {
+    function __construct($message, $code, $http_code, Exception $previous = NULL) {
         $this->http_code = $http_code;
 
         parent::__construct($message, $code, $previous);
