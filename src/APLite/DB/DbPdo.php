@@ -101,8 +101,12 @@ class DbPdo extends AbstractBase implements IDb {
                 $this->dbo = new PDO($dsn, $this->dbParameter->getUser(), $this->dbParameter->getPassword(), $opts);
 
                 // 设置 MySQL 事务隔离级别 ...
-                if ($this->dbParameter->hasInitCommand())
+                if ($this->dbParameter->hasInitCommand()) {
                     $this->dbo->exec($this->dbParameter->getInitCommand());
+                } else {
+                    if ($this->dbParameter->getTimeout() > 0)
+                        $this->dbo->exec("SET SESSION wait_timeout = " . $this->dbParameter->getTimeout() . ", interactive_timeout = " . $this->dbParameter->getTimeout() . ";");
+                }
                 // $this->dbo->exec("SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; SET SESSION wait_timeout = 7776000, interactive_timeout = 7776000;");
 
                 // 设置当前客户端连接 ID ...
