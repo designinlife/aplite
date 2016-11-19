@@ -159,7 +159,7 @@ abstract class AbstractBootstrap {
         if (is_array($cfgs['dbs'])) {
             foreach ($cfgs['dbs'] as $k => $v) {
                 $dbo = new DbPdo($this);
-                $dbo->setDbParameter(new DbParameter($v['host'], $v['port'], $v['user'], $v['pass'], $v['db'], $v['charset'], isset($v['sock']) ? $v['sock'] : NULL));
+                $dbo->setDbParameter(new DbParameter($v['host'], $v['port'], $v['user'], $v['pass'], $v['db'], $v['charset'], isset($v['sock']) ? $v['sock'] : NULL, isset($v['init']) ? $v['init'] : NULL));
 
                 $this->dbs[$k] = $dbo;
             }
