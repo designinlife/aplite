@@ -24,4 +24,12 @@ class AP {
     const QUERY_RESULT_SINGLE = 1;
     const QUERY_RESULT_MULTI  = 2;
     const QUERY_RESULT_SCALAR = 3;
+
+    # 适用于 Enc 的常量定义
+    # -----------------------------------------------------
+    const ENC_NONE     = 0;
+    const ENC_DEFAULTS = 2;
+    const ENC_JSON     = 1;
+    const ENC_MSGPACK  = 2;
+    const ENC_IGBINARY = 3;
 }

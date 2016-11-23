@@ -1,6 +1,7 @@
 <?php
 namespace APLite\HTTP;
 
+use APLite\AP;
 use APLite\Base\DataSerializable;
 
 /**
@@ -46,6 +47,13 @@ abstract class HttpRequest extends DataSerializable {
      * @var array|null
      */
     protected $params = NULL;
+
+    /**
+     * 数据类型。
+     *
+     * @var int
+     */
+    protected $data_type = AP::ENC_NONE;
 
     /**
      * 请求头信息。
@@ -147,6 +155,27 @@ abstract class HttpRequest extends DataSerializable {
      */
     function setRequestHeaders($request_headers) {
         $this->request_headers = $request_headers;
+
+        return $this;
+    }
+
+    /**
+     * 获取响应内容编码类型。
+     *
+     * @return int
+     */
+    function getDataType() {
+        return $this->data_type;
+    }
+
+    /**
+     * 设置响应内容编码类型。
+     *
+     * @param int $data_type 编码类型。(注: 请务必使用 AP::ENC_* 常量定义.)
+     * @return HttpRequest
+     */
+    function setDataType($data_type) {
+        $this->data_type = $data_type;
 
         return $this;
     }

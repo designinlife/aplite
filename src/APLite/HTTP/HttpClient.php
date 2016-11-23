@@ -5,6 +5,7 @@ use APLite\Base\AbstractBase;
 use APLite\Exceptions\HttpClientException;
 use APLite\Exceptions\HttpNonResponseException;
 use APLite\Exceptions\HttpStatusException;
+use APLite\Utility\Enc;
 
 /**
  * 基于 Curl 的 HTTP 客户端类。
@@ -54,6 +55,9 @@ class HttpClient extends AbstractBase {
 
         // if (empty($r))
         //     throw new HttpNonResponseException('返回内容为空。', 4003);
+
+        if ($httpRequest->getDataType() > 0)
+            $r = Enc::decode($r, $httpRequest->getDataType());
 
         $obr = new HttpResponse($r, [], $http_code);
 

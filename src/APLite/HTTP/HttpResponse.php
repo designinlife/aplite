@@ -27,16 +27,16 @@ class HttpResponse {
     /**
      * 服务器响应内容。
      *
-     * @var string
+     * @var mixed
      */
     protected $body = NULL;
 
     /**
      * 构造函数。
      *
-     * @param string $body      响应内容。
-     * @param array  $headers   响应头信息。
-     * @param int    $http_code HTTP 状态码。
+     * @param mixed $body      响应内容。
+     * @param array $headers   响应头信息。
+     * @param int   $http_code HTTP 状态码。
      */
     function __construct($body, array $headers, $http_code = 200) {
         $this->headers   = $headers;
@@ -65,7 +65,7 @@ class HttpResponse {
     /**
      * 获取响应内容。
      *
-     * @return string
+     * @return mixed
      */
     function getBody() {
         return $this->body;
