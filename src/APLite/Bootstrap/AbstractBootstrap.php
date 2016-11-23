@@ -140,6 +140,8 @@ abstract class AbstractBootstrap {
             $this->argv        = &$argv;
         }
 
+        $this->cfgs = &$cfgs;
+
         date_default_timezone_set($this->timezone);
 
         set_error_handler([$this, 'defErrorHandler'], $this->error_reporting);
