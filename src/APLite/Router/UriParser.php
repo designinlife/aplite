@@ -28,10 +28,10 @@ class UriParser extends AbstractWebBase implements IRouteParser {
         $c = 'Index';
         $m = 'defaults';
 
-        if ($uri_len >= 1)
-            $c = Util::toCamelCase($uris[0], true);
         if ($uri_len >= 2)
-            $m = Util::toCamelCase($uris[1]);
+            $c = Util::toCamelCase($uris[1], true);
+        if ($uri_len >= 3)
+            $m = Util::toCamelCase($uris[2]);
 
         return new RouteResponse($c, $m, []);
     }
