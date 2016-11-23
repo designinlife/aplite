@@ -53,11 +53,12 @@ class HttpClient extends AbstractBase {
         if (!($http_code >= 200 && $http_code < 300))
             throw new HttpStatusException('请求响应状态异常。', 4002, $http_code);
 
-        // if (empty($r))
-        //     throw new HttpNonResponseException('返回内容为空。', 4003);
+        if ($httpRequest->getDataType() > 0) {
+            if (empty($r))
+                throw new HttpNonResponseException('返回内容为空。', 4003);
 
-        if ($httpRequest->getDataType() > 0)
             $r = Enc::decode($r, $httpRequest->getDataType());
+        }
 
         $obr = new HttpResponse($r, [], $http_code);
 
