@@ -2,7 +2,9 @@
 namespace APLite\Utility;
 
 use APLite\Base\DataSerializable;
+use APLite\Exceptions\ArgumentException;
 use APLite\Interfaces\IDb;
+use APLite\Interfaces\IPageStyle;
 
 /**
  * 数据库分页查询工具类。
@@ -19,6 +21,13 @@ class Pagination extends DataSerializable {
     protected $dbo = NULL;
 
     protected $page_html = '';
+
+    /**
+     * IPageStyle 对象。
+     *
+     * @var IPageStyle
+     */
+    protected $page_style = NULL;
 
     protected $page_name = 'page';
 
@@ -62,6 +71,18 @@ class Pagination extends DataSerializable {
     }
 
     /**
+     * 设置分页样式管理器。
+     *
+     * @param IPageStyle $page_style
+     * @return Pagination
+     */
+    function setPageStyle($page_style) {
+        $this->page_style = $page_style;
+
+        return $this;
+    }
+
+    /**
      * 设置 Scalar 查询 SQL 语句。
      *
      * @param array $scalar_query
@@ -87,8 +108,14 @@ class Pagination extends DataSerializable {
 
     /**
      * 执行分页查询。
+     *
+     * @return string 返回分页 HTML 代码。
+     * @throws ArgumentException
      */
     function exec() {
+        if (!$this->page_style)
+            throw new ArgumentException('未设置 IPageStyle 分页样式管理器。');
+
         $this->current_page = ( int ) $_GET[$this->page_name];
 
         if ($this->current_page < 1)
@@ -104,7 +131,22 @@ class Pagination extends DataSerializable {
         if ($this->page_count < 1)
             $this->page_count = 1;
 
+        if ($this->current_page > $this->page_count)
+            $this->current_page = $this->page_count;
+
         $this->data_set = $this->dbo->fetchAll($this->list_query[0] . ' LIMIT ' . $this->start_index . ',' . $this->page_size, isset($this->list_query[1]) ? $this->list_query[1] : NULL);
+
+        return $this->page_style->setPagination($this)
+                                ->apply();
+    }
+
+    /**
+     * 获取分页变量名称。
+     *
+     * @return string
+     */
+    function getPageName() {
+        return $this->page_name;
     }
 
     /**
