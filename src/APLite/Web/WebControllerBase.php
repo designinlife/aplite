@@ -44,6 +44,33 @@ class WebControllerBase extends AbstractWebBase implements IController {
     }
 
     /**
+     * 指示是否 POST 请求？
+     *
+     * @return bool
+     */
+    function isPost() {
+        return 0 == strcmp('POST', $_SERVER['REQUEST_METHOD']);
+    }
+
+    /**
+     * 指示是否 PUT 请求？
+     *
+     * @return bool
+     */
+    function isPut() {
+        return 0 == strcmp('PUT', $_SERVER['REQUEST_METHOD']);
+    }
+
+    /**
+     * 指示是否 DELETE 请求？
+     *
+     * @return bool
+     */
+    function isDelete() {
+        return 0 == strcmp('DELETE', $_SERVER['REQUEST_METHOD']);
+    }
+
+    /**
      * 模板变量赋值。
      *
      * @param string $key
