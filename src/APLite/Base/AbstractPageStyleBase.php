@@ -50,7 +50,7 @@ abstract class AbstractPageStyleBase implements IPageStyle {
             return sprintf($this->page_pattern, $page);
         } else {
             if (empty($_SERVER['QUERY_STRING'])) {
-                return $_SERVER['SCRIPT_NAME'] . '?' . $this->pagination->getPageName() . '=' . $page;
+                return $_SERVER['REQUEST_URI'] . '?' . $this->pagination->getPageName() . '=' . $page;
             } else {
                 if (preg_match('/(\?|&)' . $this->pagination->getPageName() . '=[\-0-9]*/i', $_SERVER['REQUEST_URI'])) {
                     return preg_replace('/(\?|&)' . $this->pagination->getPageName() . '=[\-0-9]*/is', '\\1' . $this->pagination->getPageName() . '=' . $page, $_SERVER['REQUEST_URI']);
