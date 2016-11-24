@@ -18,7 +18,7 @@ class Pagination extends DataSerializable {
     /**
      * @var IDb
      */
-    protected $dbo = NULL;
+    private $dbo = NULL;
 
     protected $page_html = '';
 
@@ -201,5 +201,42 @@ class Pagination extends DataSerializable {
      */
     function getDataSet() {
         return $this->data_set;
+    }
+
+    /**
+     * 对象转换为数组。
+     *
+     * @param array $options
+     * @return array
+     */
+    function toArray(array $options = []) {
+        $d = array(
+            'si' => $this->start_index,
+            'ei' => $this->start_index + $this->page_size,
+            'ps' => $this->page_size,
+            'cp' => $this->current_page,
+            'pc' => $this->page_count,
+            'rc' => $this->record_count,
+        );
+
+        if ($d['ei'] > $this->record_count)
+            $d['ei'] = $this->record_count;
+
+        return $d;
+    }
+
+    /**
+     * serialize() checks if your class has a function with the magic name __sleep.
+     * If so, that function is executed prior to any serialization.
+     * It can clean up the object and is supposed to return an array with the names of all variables of that object that should be serialized.
+     * If the method doesn't return anything then NULL is serialized and E_NOTICE is issued.
+     * The intended use of __sleep is to commit pending data or perform similar cleanup tasks.
+     * Also, the function is useful if you have very large objects which do not need to be saved completely.
+     *
+     * @return array|NULL
+     * @link http://php.net/manual/en/language.oop5.magic.php#language.oop5.magic.sleep
+     */
+    function __sleep() {
+        return ['page_name', 'page_size', 'record_count', 'current_page', 'page_count', 'start_index'];
     }
 }
