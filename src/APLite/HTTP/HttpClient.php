@@ -31,8 +31,8 @@ class HttpClient extends AbstractBase {
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $httpRequest->getConnectTimeout());
+        curl_setopt($ch, CURLOPT_TIMEOUT, $httpRequest->getTimeout());
 
         if ($httpRequest->getMethod() == 'POST') {
             curl_setopt($ch, CURLOPT_POST, true);

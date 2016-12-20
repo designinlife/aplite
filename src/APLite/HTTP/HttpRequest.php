@@ -66,13 +66,21 @@ abstract class HttpRequest extends DataSerializable {
      * 构造函数。
      *
      * @param string $url             请求地址。
+     * @param array  $params          指定参数对象。
+     * @param array  $headers         指定请求头信息。
      * @param int    $connect_timeout 连接超时。(毫秒 | 默认值: 3000)
      * @param int    $timeout         请求读写超时。(毫秒 | 默认值: 5000)
      */
-    function __construct($url, $connect_timeout = 3000, $timeout = 5000) {
+    function __construct($url, array $params = NULL, array $headers = [], $connect_timeout = 3000, $timeout = 5000) {
         $this->url             = $url;
         $this->connect_timeout = $connect_timeout;
         $this->timeout         = $timeout;
+        $this->params          = $params;
+
+        if (empty($headers))
+            $this->request_headers = ['Expect:'];
+        else
+            $this->request_headers = array_merge(['Expect:'], $headers);
     }
 
     /**
@@ -127,36 +135,12 @@ abstract class HttpRequest extends DataSerializable {
     }
 
     /**
-     * 设置请求参数。
-     *
-     * @param array|null $params
-     * @return HttpRequest
-     */
-    function setParams(array $params = NULL) {
-        $this->params = $params;
-
-        return $this;
-    }
-
-    /**
      * 获取请求头信息。
      *
      * @return array
      */
     function getRequestHeaders() {
         return $this->request_headers;
-    }
-
-    /**
-     * 设置请求头信息。
-     *
-     * @param array $request_headers
-     * @return HttpRequest
-     */
-    function setRequestHeaders($request_headers) {
-        $this->request_headers = $request_headers;
-
-        return $this;
     }
 
     /**
