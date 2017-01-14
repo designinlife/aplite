@@ -278,9 +278,8 @@ abstract class AbstractBootstrap {
             }
         }
 
-        if ($this->sqs) {
+        if ($this->sqs && $this->sqs->getConnection()->hasSocket())
             $this->sqs->getConnection()->disconnect();
-        }
 
         $this->sqs = NULL;
     }
