@@ -227,7 +227,7 @@ abstract class AbstractBootstrap {
 
             if ($this->isCliRunning() && $cls_o instanceof IProcess) {
                 $r = $cls_o->parse($this->argv);
-                $cls_o->run($r);
+                $cls_o->run();
             } else {
                 $cls_o->$cls_m();
             }
