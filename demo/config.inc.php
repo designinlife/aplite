@@ -1,10 +1,10 @@
 <?php
 $cfgs = array(
-    'app' => array(
+    'app'   => array(
         'timezone'        => 'Asia/Shanghai',
         'error_reporting' => E_ALL ^ E_NOTICE,
     ),
-    'dbs' => array(
+    'dbs'   => array(
         'default' => array(
             'host'    => '192.168.0.1',
             'port'    => 3306,
@@ -22,8 +22,16 @@ $cfgs = array(
             'charset' => 'utf8',
         ),
     ),
-    'sqs' => array(
+    'sqs'   => array(
         'host' => '127.0.0.1',
         'port' => 11300,
+    ),
+    'cache' => array(
+        'enable' => true,
+        'type'   => 'redis',
+        'host'   => '127.0.0.1',
+        'port'   => 6379,
+        'pass'   => '',
+        'sock'   => '/tmp/redis.sock',
     ),
 );

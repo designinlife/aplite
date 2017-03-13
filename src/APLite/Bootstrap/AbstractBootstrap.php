@@ -1,10 +1,13 @@
 <?php
 namespace APLite\Bootstrap;
 
+use APLite\Cache\MemcacheClient;
+use APLite\Cache\RedisClient;
 use APLite\DB\DbParameter;
 use APLite\DB\DbPdo;
 use APLite\Exceptions\ArgumentException;
 use APLite\Exceptions\ConfigurationException;
+use APLite\Interfaces\ICache;
 use APLite\Interfaces\IController;
 use APLite\Interfaces\IProcess;
 use APLite\Interfaces\IRouteParser;
@@ -114,6 +117,13 @@ abstract class AbstractBootstrap {
     public $sqs = NULL;
 
     /**
+     * 缓存客户端对象实例。
+     *
+     * @var ICache|\Redis
+     */
+    public $cache = NULL;
+
+    /**
      * 全局配置参数列表。
      *
      * @var array
@@ -172,6 +182,19 @@ abstract class AbstractBootstrap {
             $this->sqs = new \Pheanstalk\Pheanstalk($cfgs['sqs']['host'], $cfgs['sqs']['port']);
 
             SQ::initialize($this);
+        }
+
+        // 实例化缓存服务 ...
+        if (isset($cfgs['cache']['enable']) && true === $cfgs['cache']['enable']) {
+            if ($cfgs['cache']['type'] == 'redis') {
+                $this->cache = new RedisClient();
+                $this->cache->connect($cfgs['cache']['host'], $cfgs['cache']['port']);
+
+                if (isset($cfgs['cache']['pass']))
+                    $this->cache->auth($cfgs['cache']['pass']);
+            } elseif ($cfgs['cache']['type'] == 'memcached') {
+                $this->cache = new MemcacheClient($cfgs['cache']['host'], $cfgs['cache']['port'], '');
+            }
         }
 
         $this->initialize();
@@ -281,7 +304,12 @@ abstract class AbstractBootstrap {
         if ($this->sqs && $this->sqs->getConnection()->hasSocket())
             $this->sqs->getConnection()->disconnect();
 
-        $this->sqs = NULL;
+        if ($this->cache) {
+            $this->cache->close();
+        }
+
+        $this->sqs   = NULL;
+        $this->cache = NULL;
     }
 
     /**
