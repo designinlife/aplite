@@ -1,7 +1,7 @@
 <?php
 namespace APLite\Router;
 
-use APLite\Base\AbstractWebBase;
+use APLite\Base\AbstractBase;
 use APLite\Interfaces\IRouteParser;
 use APLite\Utility\Util;
 
@@ -13,7 +13,7 @@ use APLite\Utility\Util;
  * @version       1.0.0
  * @copyright (c) 2013-2016, Lei Lee
  */
-class UriParser extends AbstractWebBase implements IRouteParser {
+class UriParser extends AbstractBase implements IRouteParser {
     /**
      * 解析路由。
      *

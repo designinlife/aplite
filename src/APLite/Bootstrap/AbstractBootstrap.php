@@ -239,7 +239,7 @@ abstract class AbstractBootstrap {
     /**
      * 执行控制器行为。
      */
-    final function execute() {
+    protected function execute() {
         $cls_n = $this->controller_ns . '\\' . $this->route_response->getController();
         $cls_m = $this->route_response->getMethod();
 
