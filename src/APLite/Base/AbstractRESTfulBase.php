@@ -1,30 +1,30 @@
 <?php
 namespace APLite\Base;
 
-use APLite\Bootstrap\ProcessBootstrap;
+use APLite\Bootstrap\RESTfulBootstrap;
 
 /**
- * Class AbstractProcessBase
+ * Class AbstractRESTfulBase
  *
  * @package       APLite\Base
  * @author        Lei Lee <web.developer.network@gmail.com>
  * @version       1.0.0
- * @copyright (c) 2013-2016, Lei Lee
+ * @copyright (c) 2013-2017, Lei Lee
  */
-abstract class AbstractProcessBase {
+abstract class AbstractRESTfulBase {
     /**
-     * ProcessBootstrap 实例。
+     * RESTfulBootstrap 实例。
      *
-     * @var ProcessBootstrap
+     * @var RESTfulBootstrap
      */
     protected $bootstrap = NULL;
 
     /**
      * 构造函数。
      *
-     * @param ProcessBootstrap $bootstrap 指定 ProcessBootstrap 上下文实例。
+     * @param RESTfulBootstrap $bootstrap 指定 RESTfulBootstrap 上下文实例。
      */
-    function __construct(ProcessBootstrap $bootstrap) {
+    function __construct(RESTfulBootstrap $bootstrap) {
         $this->bootstrap = $bootstrap;
     }
 

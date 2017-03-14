@@ -11,7 +11,7 @@ use APLite\Bootstrap\WebBootstrap;
  * @version       1.0.0
  * @copyright (c) 2013-2016, Lei Lee
  */
-class AbstractWebBase {
+abstract class AbstractWebBase {
     /**
      * WebBootstrap 实例。
      *
