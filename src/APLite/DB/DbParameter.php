@@ -28,6 +28,8 @@ class DbParameter {
 
     private $timeout = 0;
 
+    private $auto_reconnect = false;
+
     /**
      * DbParameter constructor.
      *
@@ -40,17 +42,19 @@ class DbParameter {
      * @param string $sock
      * @param string $init_command
      * @param int    $timeout
+     * @param bool   $auto_reconnect
      */
-    function __construct($host, $port, $user, $password, $db, $charset = 'utf8', $sock = NULL, $init_command = NULL, $timeout = 0) {
-        $this->host         = $host;
-        $this->port         = $port;
-        $this->user         = $user;
-        $this->password     = $password;
-        $this->db           = $db;
-        $this->charset      = $charset;
-        $this->sock         = $sock;
-        $this->init_command = $init_command;
-        $this->timeout      = $timeout;
+    function __construct($host, $port, $user, $password, $db, $charset = 'utf8', $sock = NULL, $init_command = NULL, $timeout = 0, $auto_reconnect = false) {
+        $this->host           = $host;
+        $this->port           = $port;
+        $this->user           = $user;
+        $this->password       = $password;
+        $this->db             = $db;
+        $this->charset        = $charset;
+        $this->sock           = $sock;
+        $this->init_command   = $init_command;
+        $this->timeout        = $timeout;
+        $this->auto_reconnect = $auto_reconnect;
     }
 
     /**
@@ -150,5 +154,26 @@ class DbParameter {
      */
     function getTimeout() {
         return $this->timeout;
+    }
+
+    /**
+     * 是否开启自动重连？
+     *
+     * @return bool
+     */
+    function isAutoReconnect() {
+        return $this->auto_reconnect;
+    }
+
+    /**
+     * 是否开启自动重连？
+     *
+     * @param bool $auto_reconnect
+     * @return DbParameter
+     */
+    function setAutoReconnect($auto_reconnect) {
+        $this->auto_reconnect = $auto_reconnect;
+
+        return $this;
     }
 }

@@ -111,6 +111,8 @@ class DbPdo extends AbstractBase implements IDb {
 
                 // 设置当前客户端连接 ID ...
                 // $this->connection_id = ( int ) $this->dbo->query("SELECT CONNECTION_ID()")->fetchColumn(0);
+
+                $this->setAutoReconnect($this->dbParameter->isAutoReconnect());
             } catch (\Exception $ex) {
                 throw $ex;
             }
