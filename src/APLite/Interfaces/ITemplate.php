@@ -35,4 +35,11 @@ interface ITemplate {
      * @return mixed
      */
     function render($name, array $context = []);
+
+    /**
+     * 添加扩展。
+     *
+     * @param \Twig_Extension $extension
+     */
+    function addExtension(\Twig_Extension $extension);
 }

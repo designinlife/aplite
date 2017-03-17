@@ -82,4 +82,13 @@ class TwigTemplate extends AbstractWebBase implements ITemplate {
     function render($name, array $context = []) {
         $this->twig->render($name, $context);
     }
+
+    /**
+     * 添加扩展。
+     *
+     * @param \Twig_Extension $extension
+     */
+    function addExtension(\Twig_Extension $extension) {
+        $this->twig->addExtension($extension);
+    }
 }
