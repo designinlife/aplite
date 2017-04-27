@@ -68,6 +68,13 @@ abstract class AbstractBootstrap {
     protected $cli_running = false;
 
     /**
+     * 检测到异常时是否退出应用程序？
+     *
+     * @var bool
+     */
+    protected $exception_exit = true;
+
+    /**
      * 路由结果对象。
      *
      * @var RouteResponse
@@ -286,7 +293,9 @@ abstract class AbstractBootstrap {
 
         echo $ex->getMessage(), PHP_EOL;
         echo $ex->getTraceAsString(), PHP_EOL;
-        exit(2);
+
+        if ($this->exception_exit)
+            exit(2);
     }
 
     /**
@@ -398,6 +407,27 @@ abstract class AbstractBootstrap {
      */
     function setControllerNs($controller_ns) {
         $this->controller_ns = $controller_ns;
+
+        return $this;
+    }
+
+    /**
+     * 捕获到异常时是否退出？
+     *
+     * @return bool
+     */
+    function isExceptionExit() {
+        return $this->exception_exit;
+    }
+
+    /**
+     * 捕获到异常时是否退出？
+     *
+     * @param bool $exception_exit
+     * @return AbstractBootstrap
+     */
+    function setExceptionExit($exception_exit) {
+        $this->exception_exit = $exception_exit;
 
         return $this;
     }
